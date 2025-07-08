@@ -1,10 +1,12 @@
 from flask import Flask, jsonify
 import random
+from flask_cors import CORS
 import reverse_geocoder as rg
 import threading
 import time
 
 app = Flask(__name__)
+CORS(app) 
 
 # Static city list
 cities = [
@@ -88,6 +90,7 @@ if __name__ == '__main__':
     updater_thread = threading.Thread(target=update_aircraft_positions)
     updater_thread.daemon = True
     updater_thread.start()
+    
     import os
     port = int(os.environ.get('PORT', 8000))  # Default to 8000 if PORT is not set
     app.run(debug=False, host='0.0.0.0', port=port)
